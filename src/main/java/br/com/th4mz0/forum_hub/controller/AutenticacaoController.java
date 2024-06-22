@@ -1,8 +1,11 @@
 package br.com.th4mz0.forum_hub.controller;
 
 
-import br.com.th4mz0.forum_hub.domain.curso.usuario.DadosAutenticacao;
-import br.com.th4mz0.forum_hub.domain.curso.usuario.Usuario;
+import br.com.th4mz0.forum_hub.domain.auth.PostRegisterDTO;
+import br.com.th4mz0.forum_hub.domain.usuario.DadosAutenticacao;
+import br.com.th4mz0.forum_hub.domain.usuario.Usuario;
+import br.com.th4mz0.forum_hub.domain.usuario.UsuarioRepository;
+import br.com.th4mz0.forum_hub.domain.usuario.UsuarioService;
 import br.com.th4mz0.forum_hub.infra.security.DadosTokenJWT;
 import br.com.th4mz0.forum_hub.infra.security.TokenService;
 import jakarta.validation.Valid;
@@ -10,13 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("auth")
 public class AutenticacaoController {
 
     @Autowired
@@ -25,11 +25,13 @@ public class AutenticacaoController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping
+    @Autowired
+
+    private UsuarioService usuarioService;
+
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid DadosAutenticacao dados){
-
         try {
-
             var authenticationToken = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
 
             var authentication = manager.authenticate(authenticationToken);
@@ -44,11 +46,16 @@ public class AutenticacaoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
-
-
-
-
-
-
     }
+
+    @PostMapping("/register")
+
+    public ResponseEntity register(@RequestBody @Valid PostRegisterDTO postRegisterDTO ){
+
+        usuarioService.save(postRegisterDTO);
+
+        return  ResponseEntity.ok().build();
+    }
+
+
 }

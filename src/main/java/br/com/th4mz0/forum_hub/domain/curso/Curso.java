@@ -1,10 +1,13 @@
 package br.com.th4mz0.forum_hub.domain.curso;
 
+import br.com.th4mz0.forum_hub.domain.topico.Topico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Getter
@@ -22,6 +25,9 @@ public class Curso {
     private String nome;
 
     private String categoria;
+
+    @OneToMany(mappedBy = "curso")
+    private List<Topico> topicos;
 
 
     public Curso(DadosPostCurso dados) {

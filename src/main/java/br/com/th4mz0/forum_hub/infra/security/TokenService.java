@@ -1,6 +1,6 @@
 package br.com.th4mz0.forum_hub.infra.security;
 
-import br.com.th4mz0.forum_hub.domain.curso.usuario.Usuario;
+import br.com.th4mz0.forum_hub.domain.usuario.Usuario;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

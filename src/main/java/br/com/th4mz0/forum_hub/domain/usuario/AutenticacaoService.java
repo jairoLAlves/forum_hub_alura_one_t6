@@ -1,4 +1,4 @@
-package br.com.th4mz0.forum_hub.domain.curso.usuario;
+package br.com.th4mz0.forum_hub.domain.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

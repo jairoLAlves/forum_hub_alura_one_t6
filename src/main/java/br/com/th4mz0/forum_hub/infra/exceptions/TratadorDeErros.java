@@ -24,6 +24,8 @@ public class TratadorDeErros {
                 .body(erros.stream().map(DadosErrorValidacao::new).toList());
     }
 
+    // TODO - Implementar os tratamentos de erros relacionados ao cadastro dos Cursos, Usuarios, Topicos, Perfil, Respostas e Autenticação
+
     private record DadosErrorValidacao(
             String campo,
             String mensagem

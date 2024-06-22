@@ -1,4 +1,4 @@
-package br.com.th4mz0.forum_hub.domain.curso.usuario;
+package br.com.th4mz0.forum_hub.domain.usuario;
 
 import jakarta.validation.constraints.NotBlank;
 

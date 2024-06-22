@@ -29,7 +29,9 @@ public class SecurityConfigurations {
 
                 )
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/login").permitAll();
+                    authorize.requestMatchers("auth/login").permitAll();
+                    //authorize.requestMatchers("auth/register").hasAnyRole("ADMIN");
+                    // TODO - Analizar asrotas
                     authorize.
                             requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**")
                             .permitAll();

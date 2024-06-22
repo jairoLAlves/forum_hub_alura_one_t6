@@ -1,6 +1,8 @@
-package br.com.th4mz0.forum_hub.domain.curso.usuario;
+package br.com.th4mz0.forum_hub.domain.usuario;
 
 
+import br.com.th4mz0.forum_hub.domain.perfil.Perfil;
+import br.com.th4mz0.forum_hub.domain.topico.Topico;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,10 +26,31 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="usuario_perfil",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "perfil_id")
+
+
+    )
+    private List<Perfil> perfis;
+
+    @OneToMany(mappedBy = "autor")
+    private List<Topico> topicos;
+
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
+        return perfis.stream()
+                .map(
+                p-> new SimpleGrantedAuthority(p.getNome().name()))
+                .toList();
+
     }
+
 
     @Override
     public String getPassword() {

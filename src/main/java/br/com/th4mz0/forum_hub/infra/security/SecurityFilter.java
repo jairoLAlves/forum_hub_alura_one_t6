@@ -1,6 +1,6 @@
 package br.com.th4mz0.forum_hub.infra.security;
 
-import br.com.th4mz0.forum_hub.domain.curso.usuario.UsuarioRepository;
+import br.com.th4mz0.forum_hub.domain.usuario.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
