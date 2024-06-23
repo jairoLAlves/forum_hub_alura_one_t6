@@ -1,5 +1,6 @@
 package br.com.th4mz0.forum_hub.infra.exceptions;
 
+import br.com.th4mz0.forum_hub.domain.ValidacaoException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -23,8 +24,11 @@ public class TratadorDeErros {
                 .badRequest()
                 .body(erros.stream().map(DadosErrorValidacao::new).toList());
     }
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity validacoes(ValidacaoException ex){
 
-    // TODO - Implementar os tratamentos de erros relacionados ao cadastro dos Cursos, Usuarios, Topicos, Perfil, Respostas e Autenticação
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 
     private record DadosErrorValidacao(
             String campo,

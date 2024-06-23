@@ -10,12 +10,14 @@ import java.util.List;
 public record PostRegisterDTO(
         @NotBlank
         String nome,
+
+        @NotBlank
         @Email
         String email,
         @NotBlank
         String senha,
         @NotEmpty
-        List<Perfis> perfis
+        List<String> perfis
 
 ) {
 }

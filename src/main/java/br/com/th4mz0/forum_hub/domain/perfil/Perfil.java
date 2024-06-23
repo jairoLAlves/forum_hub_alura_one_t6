@@ -26,4 +26,8 @@ public class Perfil {
     @ManyToMany(mappedBy = "perfis")
     private List<Usuario> usuarios;
 
+    public Perfil(Perfis perfis){
+        this.nome = perfis;
+    }
+
 }

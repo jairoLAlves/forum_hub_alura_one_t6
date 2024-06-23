@@ -1,6 +1,7 @@
 package br.com.th4mz0.forum_hub.domain.usuario;
 
 
+import br.com.th4mz0.forum_hub.domain.auth.PostRegisterDTO;
 import br.com.th4mz0.forum_hub.domain.perfil.Perfil;
 import br.com.th4mz0.forum_hub.domain.topico.Topico;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -39,6 +41,14 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "autor")
     private List<Topico> topicos;
 
+    public Usuario(String nome, String email, String senha, List<Perfil> perfis) {
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+        this.perfis = perfis;
+
+
+    }
 
 
     @Override
@@ -50,6 +60,8 @@ public class Usuario implements UserDetails {
                 .toList();
 
     }
+
+
 
 
     @Override
