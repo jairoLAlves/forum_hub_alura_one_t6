@@ -15,43 +15,46 @@ public class CursosController {
 
     @Autowired
     private CursoRepository cursoRepository;
+    @Autowired
+    private CursoService cursoService;
 
 
     @GetMapping
-    public ResponseEntity<Page<DadosGetCurso>> getCursos(Pageable pageable){
-        Page<DadosGetCurso> pageCursos = cursoRepository.findAll(pageable).map(DadosGetCurso::new);
+    public ResponseEntity<Page<DadosGetCursoDTO>> getCursos(Pageable pageable){
+        Page<DadosGetCursoDTO> pageCursos = cursoRepository.findAll(pageable).map(DadosGetCursoDTO::new);
         return ResponseEntity.ok(pageCursos);
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity postCurso(@RequestBody @Valid DadosPostCurso dados){
+    public ResponseEntity postCurso(@RequestBody @Valid DadosPostCursoDTO dados){
 
-        Curso curso = new Curso(dados);
-        cursoRepository.save(curso);
+        Curso curso = cursoService.save(dados);
+        var cursoInfoDTO = new DadosGetInfoCursoDTO(curso);
 
-        return ResponseEntity.ok().body(curso);
+        return ResponseEntity.ok().body(cursoInfoDTO);
 
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity putCurso(@RequestBody @Valid DadosPutCurso dados){
+    public ResponseEntity putCurso(@RequestBody @Valid DadosPutCursoDTO dados){
 
         Curso curso = cursoRepository.getReferenceById(dados.id());
 
         curso.update(dados);
 
 
-        return ResponseEntity.ok().body(new DadosGetCurso(curso));
+        return ResponseEntity.ok().body(new DadosGetCursoDTO(curso));
 
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity getCurso(@PathVariable Long id){
+        // TODO - Verificar
         var curso =  cursoRepository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosGetInfoCurso(curso));
+        return ResponseEntity.ok(new DadosGetInfoCursoDTO(curso));
     }
 
 

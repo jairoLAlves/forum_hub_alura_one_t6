@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 
 public record PostTopicoDTO(
         @NotBlank
+        String titulo,
+
+        @NotBlank
         String mensagem,
 
         @NotNull

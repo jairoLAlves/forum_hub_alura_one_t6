@@ -10,10 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity(name = "Topico")
@@ -27,7 +28,10 @@ public class Topico {
 
     private String mensagem;
 
-    private LocalDateTime dataCriacao =  LocalDateTime.now();
+    private String titulo;
+
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     private Boolean status = true;
 
@@ -43,5 +47,11 @@ public class Topico {
     private List<Resposta> respostas;
 
 
+    public Topico(Usuario autor, Curso curso, String titulo, String mensagem) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.curso = curso;
+        this.mensagem = mensagem;
 
+    }
 }

@@ -1,12 +1,13 @@
 package br.com.th4mz0.forum_hub.domain.usuario.validacoes;
 
 import br.com.th4mz0.forum_hub.domain.ValidacaoException;
+import br.com.th4mz0.forum_hub.domain.Validadores;
 import br.com.th4mz0.forum_hub.domain.auth.PostRegisterDTO;
 import br.com.th4mz0.forum_hub.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("ValidadorUsuarioExistente")
 public class ValidadorUsuarioExistente implements ValidadorUsuario {
 
     @Autowired

@@ -2,12 +2,12 @@ package br.com.th4mz0.forum_hub.domain.curso;
 
 
 
-public record DadosGetInfoCurso(
+public record DadosGetInfoCursoDTO(
         Long id,
         String nome,
         String categoria
 ) {
-    public DadosGetInfoCurso(Curso c){
+    public DadosGetInfoCursoDTO(Curso c){
         this(
                 c.getId(),
                 c.getNome(),

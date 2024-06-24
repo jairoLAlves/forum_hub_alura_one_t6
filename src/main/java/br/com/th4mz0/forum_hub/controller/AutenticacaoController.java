@@ -8,6 +8,7 @@ import br.com.th4mz0.forum_hub.domain.usuario.UsuarioRepository;
 import br.com.th4mz0.forum_hub.domain.usuario.UsuarioService;
 import br.com.th4mz0.forum_hub.infra.security.DadosTokenJWT;
 import br.com.th4mz0.forum_hub.infra.security.TokenService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,11 +50,9 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/register")
-
+    @Transactional
     public ResponseEntity register(@RequestBody @Valid PostRegisterDTO postRegisterDTO ){
-
         usuarioService.save(postRegisterDTO);
-
         return  ResponseEntity.ok().build();
     }
 

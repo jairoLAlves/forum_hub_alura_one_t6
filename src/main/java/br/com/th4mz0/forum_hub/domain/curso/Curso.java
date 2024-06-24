@@ -30,12 +30,12 @@ public class Curso {
     private List<Topico> topicos;
 
 
-    public Curso(DadosPostCurso dados) {
+    public Curso(DadosPostCursoDTO dados) {
         this.nome = dados.nome();
         this.categoria = dados.categoria();
     }
 
-    public void update(DadosPutCurso c){
+    public void update(DadosPutCursoDTO c){
         if (c.categoria() != null && !c.categoria().isBlank()){
             this.categoria = c.categoria();
         }
