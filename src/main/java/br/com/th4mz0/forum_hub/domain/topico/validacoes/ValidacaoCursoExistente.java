@@ -15,9 +15,11 @@ public class ValidacaoCursoExistente implements ValidacoesTopico {
 
 
     @Override
-    public void validar(PostTopicoDTO dados) {
+    public void validar(Record dados) {
+        PostTopicoDTO postTopicoDTO = dados instanceof PostTopicoDTO ? ((PostTopicoDTO) dados) : null;
 
-        if(!cursoRepository.existsById(dados.curso())){
+        assert postTopicoDTO != null;
+        if(!cursoRepository.existsById(postTopicoDTO.curso())){
             throw new ValidacaoException("Esse curso não existe");
         }
 

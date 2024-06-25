@@ -4,6 +4,7 @@ package br.com.th4mz0.forum_hub.domain.topico;
 import br.com.th4mz0.forum_hub.domain.curso.Curso;
 import br.com.th4mz0.forum_hub.domain.curso.CursoRepository;
 import br.com.th4mz0.forum_hub.domain.topico.validacoes.ValidacoesTopico;
+import br.com.th4mz0.forum_hub.domain.topico.validacoes.ValidadoresUpdateTopico;
 import br.com.th4mz0.forum_hub.domain.usuario.Usuario;
 import br.com.th4mz0.forum_hub.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class TopicoService {
     @Autowired
     private List<ValidacoesTopico> validacoesTopico;
 
+    @Autowired
+    private List<ValidadoresUpdateTopico> validadoresUpdate;
+
     public TopicoInfoAllDTO save(PostTopicoDTO dados){
 
         // titulo e mensagem são unicas
@@ -41,5 +45,28 @@ public class TopicoService {
 
 
         return new TopicoInfoAllDTO(topico);
+    }
+
+    public Topico update(PutTopicosDTO dados) {
+
+        validadoresUpdate.forEach(v->v.validar(dados));
+
+        Topico topico = topicoRepository.getReferenceById(dados.id());
+
+        if(dados.titulo() != null && !dados.titulo().isBlank()){
+            topico.setTitulo(dados.titulo());
+        }
+
+        if(dados.status() != null){
+            topico.setStatus(dados.status());
+        }
+
+        // TODO - Setter outros parametros
+
+
+        return topico;
+
+
+
     }
 }

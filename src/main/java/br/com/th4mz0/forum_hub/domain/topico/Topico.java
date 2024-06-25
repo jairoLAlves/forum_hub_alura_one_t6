@@ -4,16 +4,14 @@ import br.com.th4mz0.forum_hub.domain.curso.Curso;
 import br.com.th4mz0.forum_hub.domain.resposta.Resposta;
 import br.com.th4mz0.forum_hub.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 
 @Getter
+@Setter
 //@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -54,4 +52,7 @@ public class Topico {
         this.mensagem = mensagem;
 
     }
+
+
+
 }

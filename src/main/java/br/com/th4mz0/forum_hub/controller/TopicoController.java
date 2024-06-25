@@ -2,6 +2,7 @@ package br.com.th4mz0.forum_hub.controller;
 
 
 import br.com.th4mz0.forum_hub.domain.topico.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,7 @@ public class TopicoController {
 
     @PostMapping
     public ResponseEntity<TopicoInfoAllDTO> postTopico(@RequestBody @Valid PostTopicoDTO postTopicoDTO){
-        var topicoInfo = topicoService.save(postTopicoDTO);
+        TopicoInfoAllDTO topicoInfo = topicoService.save(postTopicoDTO);
         return ResponseEntity.ok(topicoInfo);
     }
 
@@ -41,7 +42,7 @@ public class TopicoController {
         return ResponseEntity.ok(page);
     }
 
-    // DELETE  Topico  rota /topicos/{id}
+
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id){
         // TODO - Verificar e apagar depedentes de topico como resposta
@@ -49,7 +50,7 @@ public class TopicoController {
         return ResponseEntity.noContent().build();
     }
 
-    // GET  Topico  rota /topicos/{id}
+
     @GetMapping("/{id}")
     public ResponseEntity getTopico(@PathVariable Long id){
         // TODO - Verificar
@@ -59,7 +60,15 @@ public class TopicoController {
 
     }
 
-    // TODO - PUT  Topico  rota /topicos/{id}
+    @PutMapping
+    @Transactional
+    public ResponseEntity putTopico(@RequestBody @Valid PutTopicosDTO dados)  {
+
+        var topico = topicoService.update(dados);
+
+        return ResponseEntity.ok(new TopicoInfoAllDTO(topico));
+
+    }
 
 
 

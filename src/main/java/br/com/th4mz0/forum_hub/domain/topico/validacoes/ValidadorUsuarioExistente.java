@@ -14,9 +14,11 @@ public class ValidadorUsuarioExistente  implements ValidacoesTopico{
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public void validar(PostTopicoDTO dados) {
+    public void validar(Record dados) {
+        PostTopicoDTO postTopicoDTO = dados instanceof PostTopicoDTO ? ((PostTopicoDTO) dados) : null;
+        assert postTopicoDTO != null;
 
-        if(!usuarioRepository.existsById(dados.autor())){
+        if(!usuarioRepository.existsById(postTopicoDTO.autor())){
             throw new ValidacaoException("Esse usuario não existe");
         }
 
